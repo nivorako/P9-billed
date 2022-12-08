@@ -22,7 +22,6 @@ export default class NewBill {
         // tableau contenant les types autorisés
         const authorizedFile = ["image/jpg", "image/png", "image/jpeg"]
         // si file type correspond à un elt de type autorisé 
-        console.log('file type: ', file.type)
         if (authorizedFile.includes(file.type)) {
             if(!fileAlert.classList.contains('hidden')) fileAlert.classList.add('hidden')
             const filePath = e.target.value.split(/\\/g)
