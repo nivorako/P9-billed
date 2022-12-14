@@ -19,7 +19,7 @@ export default class NewBill {
         e.preventDefault()
         const fileAlert = this.document.querySelector('.fileAlert')
         const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-        // tableau contenant les types autorisés
+        // tableau contenant les types autorisés karaoké
         const authorizedFile = ["image/jpg", "image/png", "image/jpeg"]
         // si file type correspond à un elt de type autorisé 
         if (authorizedFile.includes(file.type)) {
@@ -55,7 +55,6 @@ export default class NewBill {
     }
     handleSubmit = e => {
         e.preventDefault()
-        console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
         const email = JSON.parse(localStorage.getItem("user")).email
         const bill = {
             email,

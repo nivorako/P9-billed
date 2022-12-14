@@ -35,7 +35,7 @@ export default class Login {
         this.document.body.style.backgroundColor="#fff"
 
       })
-
+      //if(user.email === " ") console.log('error message: ', error.message)
   }
 
   handleSubmitAdmin = e => {
