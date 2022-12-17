@@ -73,5 +73,39 @@ describe("Given I am connected as an employee", () => {
         })
     })
    
+    describe("when I click on icon eye", () => {
+        test("then modal should open", () =>{
+            // local storage
+            Object.defineProperty(window, "localStorage", { value: localStorageMock })
+            //type employee
+            window.localStorage.setItem('user', JSON.stringify({
+                type: 'Employee'
+            }))
+            // 
+            const html = BillsUI({data:bills})
+            document.body.innerHTML = html
+            // navigation vers route bills
+            const onNavigate = (pathName) => {
+                document.body.innerHTML = ROUTES({pathName})
+            }
+            // création new bill
+            const billsContainer = new Bills({
+                document,
+                onNavigate,
+                localStorage: localStorageMock,
+                store: null,
+            })
+            // simuler affichage modal
+            $.fn.modal = jest.fn()
+            // simuler la fonction click sur billContainer
+            const handleClickIconEye = jest.fn(() => {
+                billsContainer.handleClickIconEye
+            })
+            const firstEyeIcon = screen.getAllByTestId("icon-eye")[0]
+            firstEyeIcon.addEventListener("click", handleClickIconEye)
+            fireEvent.click(firstEyeIcon)
+            expect(handleClickIconEye).toHaveBeenCalled()
+        })
+    })
 })
 
