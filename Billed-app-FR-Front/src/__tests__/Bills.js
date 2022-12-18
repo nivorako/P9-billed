@@ -6,12 +6,17 @@ import {fireEvent, screen, waitFor} from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { ROUTES_PATH, ROUTES} from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
-import {bills} from "../fixtures/bills.js"
+import { mockStore } from "../__mocks__/store.js";
+import {bills} from "../fixtures/bills.js";
 import router from "../app/Router.js";
 import Bills from "../containers/Bills.js";
 
+// jest.mock("../app/Store", () => mockStore)
+
 describe("Given I am connected as an employee", () => {
     describe("When I am on Bills Page", () => {
+       
+        // tester si bill icon est surligné:
         test("Then bill icon in vertical layout should be highlighted", async () => {
             Object.defineProperty(window, 'localStorage', { value: localStorageMock })
             window.localStorage.setItem('user', JSON.stringify({
@@ -27,9 +32,11 @@ describe("Given I am connected as an employee", () => {
             //to-do write expect expression
             // windowIcon contains active-icon which highlight icon
             expect(windowIcon.classList.contains("active-icon")).toBe(true)
+           
             })
-            
-            test("Then bills should be ordered from earliest to latest", () => {
+       
+        // tester si bills apparait dans l'ordre:    
+        test("Then bills should be ordered from earliest to latest", () => {
             document.body.innerHTML = BillsUI({ data: bills })
             const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
             // const antiChrono = (a, b) => ((a < b) ? -1 : 1)
@@ -75,13 +82,6 @@ describe("Given I am connected as an employee", () => {
    
     describe("when I click on icon eye", () => {
         test("then modal should open", () =>{
-            // local storage
-            Object.defineProperty(window, "localStorage", { value: localStorageMock })
-            //type employee
-            window.localStorage.setItem('user', JSON.stringify({
-                type: 'Employee'
-            }))
-            // 
             const html = BillsUI({data:bills})
             document.body.innerHTML = html
             // navigation vers route bills
@@ -107,5 +107,22 @@ describe("Given I am connected as an employee", () => {
             expect(handleClickIconEye).toHaveBeenCalled()
         })
     })
+
 })
 
+// tester la fonction getBill()
+
+describe('when I am on bills Page', () => {
+    test('then bills should appears', async () => {
+        const bills = new Bills({
+            document,
+            onNavigate,
+            store: mockStore,
+            localStorage: window.localStorage
+          });
+        const getBills = jest.fn(() => bills.getBills())
+        const value = await getBills()
+        expect(getBills).toHaveBeenCalled()
+        //expect(value.length).toBe(4)
+    })
+})
