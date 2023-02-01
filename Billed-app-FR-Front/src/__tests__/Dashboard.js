@@ -55,6 +55,7 @@ describe('Given I am connected as an Admin', () => {
       }
 
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Admin'
       }))

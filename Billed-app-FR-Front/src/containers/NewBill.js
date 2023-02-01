@@ -31,6 +31,7 @@ export default class NewBill {
             formData.append('file', file)
             formData.append('email', email)
             console.log("target: ", e.target.value)
+            console.log('file: ', file)
             this.store
                 .bills()
                 .create({

@@ -11,8 +11,7 @@ import {bills} from "../fixtures/bills.js";
 import router from "../app/Router.js";
 import Bills from "../containers/Bills.js";
 
-// jest.mock("../app/Store", () => mockStore)
-
+// scenario 5
 describe("Given I am connected as an employee", () => {
     describe("When I am on Bills Page", () => {
        
@@ -47,6 +46,7 @@ describe("Given I am connected as an employee", () => {
         })
     })
 
+    //scenario 6
     describe("when i click on 'nouvelle note de frais' ", () => {
         test("then newBill page appears", () => {
             // simuler les données local storage
@@ -80,6 +80,7 @@ describe("Given I am connected as an employee", () => {
         })
     })
    
+    //scenario 7
     describe("when I click on icon eye", () => {
         test("then modal should open", () =>{
             const html = BillsUI({data:bills})
@@ -110,19 +111,5 @@ describe("Given I am connected as an employee", () => {
 
 })
 
+// scenario 8
 // tester la fonction getBill()
-
-describe('when I am on bills Page', () => {
-    test('then bills should appears', async () => {
-        const bills = new Bills({
-            document,
-            onNavigate,
-            store: mockStore,
-            localStorage: window.localStorage
-          });
-        const getBills = jest.fn(() => bills.getBills())
-        const value = await getBills()
-        expect(getBills).toHaveBeenCalled()
-        //expect(value.length).toBe(4)
-    })
-})

@@ -63,7 +63,7 @@ export default () => {
         }
     }
 
-  window.onpopstate = (e) => {
+    window.onpopstate = (e) => {
         const user = JSON.parse(localStorage.getItem('user'))
         if (window.location.pathname === "/" && !user) {
             document.body.style.backgroundColor="#0E5AE5"
@@ -116,7 +116,7 @@ export default () => {
                 rootDiv.innerHTML = ROUTES({ pathname: window.location.hash, error })
             })
         }
-  }
+    }
 
   return null
 }

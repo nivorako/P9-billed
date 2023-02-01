@@ -22,7 +22,6 @@ export const filteredBills = (data, status) => {
         (bill.status === status) &&
         ![...USERS_TEST, userEmail].includes(bill.email)
     }
-   
     return selectCondition
     }) : []
 }
@@ -71,12 +70,11 @@ export default class {
         this.document = document
         this.onNavigate = onNavigate
         this.store = store
-        console.log('bills: ', bills)
         $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
         $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
         $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
         new Logout({ localStorage, onNavigate })
-  }
+    }
 
     handleClickIconEye = () => {
         const billUrl = $('#icon-eye-d').attr("data-bill-url")
@@ -90,6 +88,7 @@ export default class {
         console.log('counter: ', this.counter)
         console.log("id: ", this.id)
         console.log('bill id: ', bill.id)
+        console.log('bill: ', bill)
         if (this.counter === undefined || this.id !== bill.id) this.counter = 0
         if (this.id === undefined || this.id !== bill.id) this.id = bill.id
         if (this.counter % 2 === 0) {
@@ -156,8 +155,8 @@ export default class {
 
         // on ajoute l'évt click seulement aux éléments concérnés
         const filtered = filteredBills(bills, getStatus(this.index))
-        // console.log('filtered: ', filtered)
-        // console.log('bills:' , bills)
+        console.log('filtered: ', filtered)
+        console.log('bills:' , bills)
         filtered.forEach(bill =>  {            
             $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
         })

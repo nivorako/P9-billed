@@ -7,6 +7,7 @@ import Login from "../containers/Login.js";
 import { ROUTES } from "../constants/routes";
 import { fireEvent, screen } from "@testing-library/dom";
 
+// scenario 1
 describe("Given that I am a user on login page", () => {
     describe("When I do not fill fields and I click on employee button Login In", () => {
         test("Then It should renders Login page", async () => {
@@ -29,6 +30,7 @@ describe("Given that I am a user on login page", () => {
         });
     });
 
+    //scenario 2
     describe("When I do fill fields in incorrect format and I click on employee button Login In", () => {
         test("Then It should renders Login page", () => {
         document.body.innerHTML = LoginUI();
@@ -48,9 +50,11 @@ describe("Given that I am a user on login page", () => {
         fireEvent.submit(form);
         expect(screen.getByTestId("form-employee")).toBeTruthy();
         // je suis invité à remplir le champ e-mail au bon format.
+        expect(inputEmailUser.checkValidity()).toBeFalsy();
         });
     });
 
+    // scenarion 3
     describe("When I do fill fields in correct format and I click on employee button Login In", () => {
         test("Then I should be identified as an Employee in app", () => {
         document.body.innerHTML = LoginUI();
