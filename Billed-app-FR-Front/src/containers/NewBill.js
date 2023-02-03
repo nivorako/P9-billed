@@ -19,7 +19,7 @@ export default class NewBill {
         e.preventDefault()
         const fileAlert = this.document.querySelector('.fileAlert')
         const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-        // tableau contenant les types autorisés karaoké
+        // tableau contenant les types autorisés
         const authorizedFile = ["image/jpg", "image/png", "image/jpeg"]
         // si file type correspond à un elt de type autorisé 
         if (authorizedFile.includes(file.type)) {
@@ -30,8 +30,6 @@ export default class NewBill {
             const email = JSON.parse(localStorage.getItem("user")).email
             formData.append('file', file)
             formData.append('email', email)
-            console.log("target: ", e.target.value)
-            console.log('file: ', file)
             this.store
                 .bills()
                 .create({
