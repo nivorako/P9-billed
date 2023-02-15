@@ -3,18 +3,15 @@
  */
 import '@testing-library/jest-dom'
 import { screen, fireEvent } from "@testing-library/dom"
-import userEvent from "@testing-library/user-event"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import {ROUTES, ROUTES_PATH} from '../constants/routes.js'
 import mockStore from '../__mocks__/store.js'
 import {localStorageMock} from '../__mocks__/localStorage.js'
-import BillsUI from "../views/BillsUI.js"
-import router from "../app/Router.js"
 
-// jest.mock('../app/store', () => mockStore)
-// scénario 9
+
 describe("Given I am connected as an employee", () => {
+    // scénario 7
     describe("When I am on NewBill Page, and try to download a file with extension different from jpeg, jpg or png", () => {
         test("Then an error message appear, you cannot download", () => {
            
@@ -45,7 +42,7 @@ describe("Given I am connected as an employee", () => {
         })
     })
 
-    // scénario 10
+    // scénario 8
     describe("When i download the attached file in the correct format", () => {
         test("the new bill is sent", () => {
             window.localStorage.setItem('user', JSON.stringify({
@@ -106,11 +103,7 @@ describe('Given I am connected as an employéé and on NewBill page', () => {
         )
         
     })
-    afterEach(() => {
-        localStorage.clear(),
-        jest.restoreAllMocks()
-    })
-   
+    // scenario 9
     describe("When an error 404 occurres on submit", () => {
         it("Then a warning should be displayed on console", async () => {
             const onNavigate = (pathname) => {
@@ -145,39 +138,39 @@ describe('Given I am connected as an employéé and on NewBill page', () => {
             expect(console.error).toBeCalled()
         })
     })
-
-    // describe("When an error 500 occurres on submit", () => {
-    //     it("Then a warning should be displayed on console", async () => {
-    //         const onNavigate = (pathname) => {
-    //             document.body.innerHTML = ROUTES({ pathname })
-    //         }
-    //         const newBill = new NewBill({
-    //             document,
-    //             onNavigate,
-    //             store: mockStore,
-    //             localStorage: window.localStorage,
-    //         })
+    // scenario 10
+    describe("When an error 500 occurres on submit", () => {
+        it("Then a warning should be displayed on console", async () => {
+            const onNavigate = (pathname) => {
+                document.body.innerHTML = ROUTES({ pathname })
+            }
+            const newBill = new NewBill({
+                document,
+                onNavigate,
+                store: mockStore,
+                localStorage: window.localStorage,
+            })
         
-    //             // ERROR SIMULATION
-    //         jest.spyOn(mockStore, 'bills')
-    //         console.error = jest.fn()
+                // ERROR SIMULATION
+            jest.spyOn(mockStore, 'bills')
+            console.error = jest.fn()
         
-    //         // mockImplementationOnce : Accepts a function that will be used as an implementation of the mock for one call to the mocked function. 
-    //         mockStore.bills.mockImplementationOnce(() => {
-    //             return {
-    //                 update: () => {
-    //                     return Promise.reject(new Error('Erreur 500'))
-    //                 },
-    //             }
-    //         })
+            // mockImplementationOnce : Accepts a function that will be used as an implementation of the mock for one call to the mocked function. 
+            mockStore.bills.mockImplementationOnce(() => {
+                return {
+                    update: () => {
+                        return Promise.reject(new Error('Erreur 500'))
+                    },
+                }
+            })
         
-    //         const formulaire = screen.getByTestId('form-new-bill')
-    //         const handleSubmit = jest.fn((e) => newBill.handleSubmit(e))
-    //         formulaire.addEventListener('submit', handleSubmit)
-    //         fireEvent.submit(formulaire)
+            const formulaire = screen.getByTestId('form-new-bill')
+            const handleSubmit = jest.fn((e) => newBill.handleSubmit(e))
+            formulaire.addEventListener('submit', handleSubmit)
+            fireEvent.submit(formulaire)
         
-    //         await new Promise(process.nextTick)
-    //         expect(console.error).toBeCalled()
-    //     })
-    // })
+            await new Promise(process.nextTick)
+            expect(console.error).toBeCalled()
+        })
+    })
 })

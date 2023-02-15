@@ -11,8 +11,9 @@ import {bills} from "../fixtures/bills.js";
 import router from "../app/Router.js";
 import Bills from "../containers/Bills.js";
 
-// scenario 5
+
 describe("Given I am connected as an employee", () => {
+    // scenario 4
     describe("When I am on Bills Page", () => {
        
         // tester si bill icon est surligné:
@@ -46,7 +47,7 @@ describe("Given I am connected as an employee", () => {
         })
     })
 
-    //scenario 6
+    //scenario 5
     describe("when i click on 'nouvelle note de frais' ", () => {
         test("then newBill page appears", () => {
             // simuler les données local storage
@@ -80,7 +81,7 @@ describe("Given I am connected as an employee", () => {
         })
     })
    
-    //scenario 7
+    //scenario 6
     describe("when I click on icon eye", () => {
         test("then modal should open", () =>{
             const html = BillsUI({data:bills})
@@ -111,5 +112,4 @@ describe("Given I am connected as an employee", () => {
 
 })
 
-// scenario 8
-// tester la fonction getBill()
+
